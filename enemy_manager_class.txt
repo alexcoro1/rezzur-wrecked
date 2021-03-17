@@ -1,0 +1,44 @@
+//Declarations and Properties
+        public Animation EnemyAnimation; // Enemy Animation
+        public Vector2 Position; // Position of the enemy
+        public bool Active; // state of the enemy
+        public int Health; // Health of the enemy
+        public int Damage; // Dameage the enemy deals
+        float enemyMoveSpeed; // Speed of the enemy
+
+        public int Width // Width of the enemy
+        {
+        get { return EnemyAnimation.FrameWidth; }
+        }
+
+        public int Height
+        {
+        get { return EnemyAnimation.FrameHeight; }
+        }
+
+        public void Initialize(Animation animation, Vector2 position)
+        {
+            EnemyAnimation = animation;
+            Position = position; // sets enemy position
+            Active = true; // Enemy is active
+            Health = 50; // health of enemy
+            Damage = 50; // damage dealt by enemy
+            enemyMoveSpeed = 6f; // Speed of enemy
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            Position.X -= enemyMoveSpeed; // enemy alwasy moves left so decrement x position
+            EnemyAnimation.Position = Position; // Update the position of the animation
+            EnemyAnimation.Update(gameTime); // Update animation
+            
+            if (Position.X < -Width || Health <= 0) // if the enemy is off screen or the enemy health is 0 then deactivate it.
+            {
+                Active = false; // will remove object if enemy is off screen
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            EnemyAnimation.Draw(spriteBatch); // Draw the animation 
+        }
